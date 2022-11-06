@@ -31,6 +31,8 @@ const resetMarkers = () => {
   ])
 }
 
+const gamesHistoric = [];
+
 const calculateWinner = (squares) => {
   const lines = [ 
     [0,1,2],
@@ -55,15 +57,19 @@ useEffect(() => {
   const winner = calculateWinner(markers);
   if(winner === 'X'){
     alert("Jogador X Ganhou!")
+    gamesHistoric.push(winner)
+    console.log(gamesHistoric)
     resetMarkers()
   }else if(winner === 'O'){
     alert("Jogador O Ganhou!")
+    gamesHistoric.push(winner)
+    console.log(gamesHistoric)
     resetMarkers()
   }
 }, [markers])
 
   return (
-    <SafeAreaView style ={styles.body}>
+    <SafeAreaView style={styles.body}>
     <View style={[styles.playerInfo, {backgroundColor: active_player === 'X' ?'#007FF4':'#F40075'}]}>
     <Text style={styles.playerTxt}>Player {active_player}'s turn</Text>
     </View>
@@ -127,7 +133,10 @@ useEffect(() => {
     <Pressable style={styles.cancelBTN} onPress={resetMarkers}>
       <Image source={require('./assets/img/replay.png')} style={styles.cancelIcon}/>
     </Pressable>
+
+    <Text>{gamesHistoric}</Text>
     </SafeAreaView>
+    
   )
 }
 
